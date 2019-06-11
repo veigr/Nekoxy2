@@ -1,0 +1,10 @@
+GET http://203.104.209.71/kcs2/js/main.js?version=4.1.1.6 HTTP/1.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0
+Accept: */*
+Accept-Language: ja,en-US;q=0.7,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://203.104.209.71/kcs2/index.php?api_root=/kcsapi&voice_root=/kcs/sound&osapi_root=osapi.dmm.com&version=4.1.1.6&api_token=4ecc1c03296e332fa6edc04de5365a8b26661f21&api_starttime=1538120385754
+DNT: 1
+Host: 203.104.209.71
+Via: 1.1 203.104.209.71
+

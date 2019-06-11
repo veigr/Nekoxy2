@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Fri, 28 Sep 2018 02:17:37 GMT
+P3P: CP="This is not a P3P policy! See https://docs.treasuredata.com/articles/p3p"
+Set-Cookie: _td_global=e2f6cd78-9553-4216-8f95-86f2af722081; Path=/; Expires=Sun, 27 Sep 2020 02:17:37 GMT; Domain=in.treasuredata.com
+Content-Length: 2
+Connection: keep-alive
+
+{}

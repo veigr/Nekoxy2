@@ -1,0 +1,11 @@
+GET http://in.treasuredata.com/postback/v3/event/google/sync?td_write_key=8151/fcd628065149d648b80f11448b4083528c0d8a91&td_global_id=td_global_id&td_client_id=aa1471e6-7bc8-4ede-a83a-9b0f71d0a1cc&account=aws-8487&google_gid=CAESEDR0L0b54CAyoANuu7jh9Xc&google_cver=1 HTTP/1.1
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36
+Accept: image/webp,image/apng,image/*,*/*;q=0.8
+Referer: http://clt.a-i-ad.com/api/ev/boot?evid=704&imid=10878227&aiad_request=JethuXYlPCClRmta_aiad_request
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: _td_global=e2f6cd78-9553-4216-8f95-86f2af722081
+Host: in.treasuredata.com
+Via: 1.1 in.treasuredata.com
+

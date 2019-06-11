@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <RootNamespace>Nekoxy2.Test</RootNamespace>
+
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Nekoxy2.Test\**\*.cs" Exclude="**\obj\**;**/AssemblyInfo.cs">
+      <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+    </Compile>
+
+    <None Include="..\Nekoxy2.Test\TestData\**\*.*" Link="TestData\%(RecursiveDir)%(FileName)%(Extension)">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ChainingAssertion-xUnit.Bin" Version="1.7.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.1" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.5" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Api\Entities\Delegations\" />
+    <Folder Include="Api\Entities\Extensions\" />
+    <Folder Include="ApplicationLayer\ProtocolReaders\WebSocket\" />
+    <Folder Include="Default\Certificate\" />
+    <Folder Include="ApplicationLayer\Entities\Http\" />
+    <Folder Include="ApplicationLayer\ProtocolReaders\Http2\Hpack\" />
+    <Folder Include="ApplicationLayer\ProtocolReaders\Http\" />
+    <Folder Include="SazLoader\" />
+    <Folder Include="TestUtil\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nekoxy2.ApplicationLayer\Nekoxy2.ApplicationLayer.csproj" />
+    <ProjectReference Include="..\Nekoxy2.Default\Nekoxy2.Default.csproj" />
+    <ProjectReference Include="..\Nekoxy2.SazLoader\Nekoxy2.SazLoader.csproj" />
+    <ProjectReference Include="..\Nekoxy2.Spi\Nekoxy2.Spi.csproj" />
+    <ProjectReference Include="..\Nekoxy2\Nekoxy2.csproj" />
+  </ItemGroup>
+
+</Project>

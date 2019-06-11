@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Titanium.Web.Proxy" Version="3.0.907" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nekoxy2.Spi\Nekoxy2.Spi.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Methods: POST,GET,HEAD,OPTIONS
+Access-Control-Allow-Origin: http://d.hatena.ne.jp
+Cache-Control: no-store, no-cache
+Content-Type: application/json
+Date: Thu, 20 Sep 2018 01:59:09 GMT
+Expires: Mon, 15 Jun 1998 00:00:00 GMT
+Pragma: no-cache
+Server: Adtech Adserver
+Content-Length: 47
+
+{"id":"31259257328373081","seatbid":[],"nbr":1}

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>SAZ File As Proxy Engine for Nekoxy2</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/veigr/Nekoxy2</PackageProjectUrl>
+    <PackageTags>HTTP Proxy</PackageTags>
+    <Authors>veigr</Authors>
+    <NuspecFile>Nekoxy2.SazLoader.nuspec</NuspecFile>
+    <NuspecProperties>
+      id=$(AssemblyName);
+      title=$(AssemblyTitle);
+      version=$(Version);
+      authors=$(Authors);
+      description=$(Description);
+    </NuspecProperties>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nekoxy2.ApplicationLayer\Nekoxy2.ApplicationLayer.csproj" />
+    <ProjectReference Include="..\Nekoxy2.Spi\Nekoxy2.Spi.csproj" />
+  </ItemGroup>
+
+</Project>

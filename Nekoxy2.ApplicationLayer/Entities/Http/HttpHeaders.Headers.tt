@@ -1,0 +1,53 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+	var headers = new Dictionary<string, string>
+	{
+		{"Host", "string"},
+		{"Content-Length", "decimal"},
+		{"Transfer-Encoding", "string"},
+		{"Content-Encoding", "string"},
+		{"Content-Type", "string"},
+		{"Connection", "string"},
+		{"Max-Forwards", "decimal"},
+		{"Allow", "string"},
+		{"Upgrade", "string"},
+		{"Sec-WebSocket-Extensions", "string"},
+	};
+#>
+
+using Nekoxy2.Spi.Entities.Http;
+
+namespace Nekoxy2.ApplicationLayer.Entities.Http
+{
+    sealed partial class HttpHeaders : IHttpHeaders
+    {
+        private void ParseHeaders()
+        {
+<#
+			foreach(var header in headers)
+			{
+				var name = header.Key.Replace("-", "");
+				var type = header.Value;
+#>
+            this.<#= name #> = new HttpHeaderField<<#= type #>>(this.headers, "<#= header.Key #>");
+<#
+			}
+#>
+        }
+<#
+			foreach(var header in headers)
+			{
+				var name = header.Key.Replace("-", "");
+				var type = header.Value;
+#>
+        public HttpHeaderField<<#= type #>> <#= name #> { get; private set; }
+<#
+			}
+#>
+    }
+}
