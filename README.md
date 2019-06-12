@@ -134,6 +134,7 @@ proxy.Start();
 
 ```C#
 var engine = DefaultEngine.Create(new ListeningConfig(8080));
+
 // 上流プロキシの設定
 engine.UpstreamProxyConfig = new UpstreamProxyConfig("127.0.0.1", 8888);
 
@@ -205,7 +206,7 @@ proxy.Start();
 #### Nekoxy2.Default
 
 * [Bouncy Castle](https://www.bouncycastle.org/csharp/)
-    * SSL/TLS 解読のための自己署名証明書の作成に利用しています
+    * SSL/TLS 復号化のための自己署名証明書の作成に利用しています
     * [ライセンス(MIT改変)](https://www.bouncycastle.org/csharp/licence.html)
 
 #### Nekoxy2.SazLoader
