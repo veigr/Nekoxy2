@@ -5,14 +5,18 @@ namespace Nekoxy2
     /// <summary>
     /// HTTP プロキシ
     /// </summary>
-    public sealed class HttpProxy : IWebSocketProxy
+    internal sealed class HttpProxy : IWebSocketProxy
     {
         /// <summary>
         /// プロキシエンジン
         /// </summary>
         private readonly Spi.IReadOnlyHttpProxyEngine proxyEngine;
 
-        private HttpProxy(Spi.IReadOnlyHttpProxyEngine engine)
+        /// <summary>
+        /// プロキシエンジンを指定して初期化
+        /// </summary>
+        /// <param name="engine">プロキシエンジン</param>
+        public HttpProxy(Spi.IReadOnlyHttpProxyEngine engine)
         {
             this.proxyEngine = engine;
             engine.HttpRequestSent += (sender, args) => this.HttpRequestSent?.Invoke(sender, ReadOnlyHttpRequestEventArgs.Convert(args));
@@ -35,6 +39,7 @@ namespace Nekoxy2
                 wsEngine.ServerWebSocketMessageReceived += (sender, args) => this.ServerWebSocketMessageReceived?.Invoke(sender, WebSocketMessageEventArgs.Convert(args));
             }
         }
+
         /// <summary>
         /// プロキシの待ち受けを開始
         /// </summary>
@@ -92,37 +97,5 @@ namespace Nekoxy2
         /// 主に非同期の実行例外の捕捉用。
         /// </summary>
         public event EventHandler<IExceptionEventArgs> FatalException;
-
-        /// <summary>
-        /// プロキシエンジンを指定して読み取り専用 HTTP プロキシを作成
-        /// </summary>
-        /// <param name="engine">プロキシエンジン</param>
-        /// <returns>HTTP プロキシ</returns>
-        public static IReadOnlyHttpProxy Create(Spi.IReadOnlyHttpProxyEngine engine)
-            => new HttpProxy(engine);
-
-        /// <summary>
-        /// プロキシエンジンを指定して HTTP プロキシを作成
-        /// </summary>
-        /// <param name="engine">プロキシエンジン</param>
-        /// <returns>HTTP プロキシ</returns>
-        public static IHttpProxy Create(Spi.IHttpProxyEngine engine)
-            => new HttpProxy(engine);
-
-        /// <summary>
-        /// プロキシエンジンを指定して読み取り専用 WebSocket プロキシを作成
-        /// </summary>
-        /// <param name="engine">プロキシエンジン</param>
-        /// <returns>HTTP プロキシ</returns>
-        public static IReadOnlyWebSocketProxy Create(Spi.IReadOnlyWebSocketProxyEngine engine)
-            => new HttpProxy(engine);
-
-        /// <summary>
-        /// プロキシエンジンを指定して WebSocket プロキシを作成
-        /// </summary>
-        /// <param name="engine">プロキシエンジン</param>
-        /// <returns>HTTP プロキシ</returns>
-        public static IWebSocketProxy Create(Spi.IWebSocketProxyEngine engine)
-            => new HttpProxy(engine);
     }
 }

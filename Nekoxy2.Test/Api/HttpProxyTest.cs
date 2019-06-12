@@ -24,7 +24,7 @@ namespace Nekoxy2.Test.Api
             var server = new TestTcpServer();
             var engine = new DefaultEngine(server);
 
-            var proxy = HttpProxy.Create(engine);
+            var proxy = HttpProxyFactory.Create(engine);
             var tcsComplete = new TaskCompletionSource<IReadOnlySession>();
             proxy.HttpResponseSent += (_, s) => tcsComplete.TrySetResult(s.Session);
 

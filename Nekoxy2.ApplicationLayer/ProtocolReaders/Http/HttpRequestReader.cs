@@ -1,5 +1,6 @@
 ﻿using Nekoxy2.ApplicationLayer.Entities.Http;
 using System;
+using System.Diagnostics;
 
 namespace Nekoxy2.ApplicationLayer.ProtocolReaders.Http
 {
@@ -48,7 +49,7 @@ namespace Nekoxy2.ApplicationLayer.ProtocolReaders.Http
             this.RequestLine = requestLine;
             if (!isParseSucceeded)
             {
-                Console.WriteLine($"###start###{startLine}###end###");
+                Debug.WriteLine($"###start###{startLine}###end###");
                 throw new BadRequestException("Invalid Request Line", this.GetRequest());
             }
         }

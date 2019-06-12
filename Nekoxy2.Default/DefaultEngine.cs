@@ -28,7 +28,7 @@ namespace Nekoxy2.Default
         private readonly ProxyConfig config = new ProxyConfig();
 
         /// <summary>
-        /// 上流プロキシ設定。
+        /// 上流プロキシ設定
         /// </summary>
         public IUpstreamProxyConfig UpstreamProxyConfig
         {
@@ -47,7 +47,9 @@ namespace Nekoxy2.Default
         public IDecryptConfig DecryptConfig => this.config.DecryptConfig;
 
         /// <summary>
-        /// キャプチャするボディやペイロード長の最大サイズ
+        /// キャプチャするボディやペイロード長の最大サイズ。
+        /// オーバーした場合、空となる。
+        /// 既定値は 32bit 時に 256MB、64bit 時に配列最大長。
         /// </summary>
         public int MaxCaptureSize
         {

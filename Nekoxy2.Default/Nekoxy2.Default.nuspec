@@ -6,7 +6,7 @@
     <version>$version$</version>
     <authors>$authors$</authors>
     <owners>$authors$</owners>
-    <license type="expression">Apache-2.0</license>
+    <license type="expression">MIT</license>
     <!--<licenseUrl>https://github.com/veigr/Nekoxy2/blob/master/LICENSE</licenseUrl>-->
     <projectUrl>https://github.com/veigr/Nekoxy2</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

@@ -62,17 +62,17 @@ namespace Nekoxy2.Sample
             engine.ServerCertificateCreated += (_, c) =>
             {
                 Console.WriteLine($"### ServerCertificateCreated: {c.Certificate.Subject}");
-                //var path = cert.Subject.Replace("CN=", "").Replace("*", "$x$") + ".pfx";
+                //var path = c.Certificate.Subject.Replace("CN=", "").Replace("*", "$x$") + ".pfx";
                 //if (!File.Exists(path))
-                //    File.WriteAllBytes(path, cert.RawData);
+                //    File.WriteAllBytes(path, c.Certificate.RawData);
             };
 
-            engine.UpstreamProxyConfig = new UpstreamProxyConfig(null, 0, "127.0.0.1", 8888);
+            engine.UpstreamProxyConfig = null;
             engine.ConnectionAdded += (_, c) => Console.WriteLine($"### Connection Added. Connections Count: {c.Count}");
             engine.ConnectionRemoved += (_, c) => Console.WriteLine($"### Connection Removed. Connections Count: {c.Count}");
 
 
-            var proxy = HttpProxy.Create(engine);
+            var proxy = HttpProxyFactory.Create(engine);
 
             proxy.FatalException += (_, e) => Console.WriteLine(e.Exception);
             proxy.HttpResponseSent += (_, s) =>
@@ -143,7 +143,7 @@ Text: {Encoding.UTF8.GetString(m.Message.PayloadData.ToArray())}");
         private static void StartTitanium()
         {
             var engine = new TitaniumEngine();
-            var proxy = HttpProxy.Create(engine);
+            var proxy = HttpProxyFactory.Create(engine);
 
             proxy.HttpRequestReceived += (_, args) =>
             {

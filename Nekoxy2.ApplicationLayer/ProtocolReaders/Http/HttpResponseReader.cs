@@ -1,5 +1,6 @@
 ﻿using Nekoxy2.ApplicationLayer.Entities.Http;
 using System;
+using System.Diagnostics;
 
 namespace Nekoxy2.ApplicationLayer.ProtocolReaders.Http
 {
@@ -41,7 +42,7 @@ namespace Nekoxy2.ApplicationLayer.ProtocolReaders.Http
             this.StatusLine = statusLine;
             if (!isParseSucceeded)
             {
-                Console.WriteLine($"###start###{startLine}###end###");
+                Debug.WriteLine($"###start###{startLine}###end###");
                 throw new BadGatewayException("Invalid Status Line");
             }
         }
@@ -56,7 +57,7 @@ namespace Nekoxy2.ApplicationLayer.ProtocolReaders.Http
             {
                 // RFC7230 3.3.3
                 // Content-Length に問題がある場合は BadGateway
-                Console.WriteLine($"###start###{this.StatusLine}+++{headerString}###end###");
+                Debug.WriteLine($"###start###{this.StatusLine}+++{headerString}###end###");
                 throw new BadGatewayException(headers.InvalidReason);
             }
             this.Headers = headers;
