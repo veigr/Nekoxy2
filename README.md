@@ -67,8 +67,10 @@ Windows 環境のプロキシ設定を支援するユーティリティです。
 
 * 既定のプロキシエンジン
 * .NET Standard 2.0 / .NET Core 2.1
-* 読み取り専用の HTTP/1.1, HTTP/2, WebSocket プロキシ
+* 読み取り専用の HTTP/1.1(RFC7230), HTTP/2(RFC7540), WebSocket(RFC6455) 対応フォワードプロキシ
+    * WebSocket over HTTP/2 (RFC8441)にも対応したつもり
     * HTTP/2 サポートは .NET Core のみ → 理由: [\.NET 環境の HTTP/2 サポート – CAT EARS](https://www.cat-ears.net/?p=43834)
+    * 非 https (クリアテキスト)上の HTTP/2(h2c) は動作確認できるクライアントが用意できていないため、現在はサポートしていません
 * MITM による SSL/TLS 復号化対応
 * 可能な限り RFC に則り動作することを目標としており、パフォーマンスは重視していません
 
@@ -144,7 +146,7 @@ proxy.Start();
 
 #### SSL/TLS の復号化
 
-`CertificateUtil` と `DecryptConfig` で設定します。
+`CertificateUtil` と `DecryptConfig` プロパティで設定します。
 
 ```C#
 // 証明書ストアに自己署名ルート証明書がない場合、新たに作成してインストール

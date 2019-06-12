@@ -486,7 +486,7 @@ namespace Nekoxy2.Default.Proxy
                     {
                         // HTTP/2 は http でのみ Upgrade を用い、https では ALPN を利用するため、SslStream での検知が必要となる
                         // しかし SslStream の ALPN サポートは Core 2.1 以降であり、.NET Standard 2.0 では利用できない
-                        // HTTP/2 クライアントの大半は https しかサポートしていないため、現時点では Nekoxy は HTTP/2 対応は行わない
+                        // HTTP/2 クライアントの大半は https しかサポートしていないため、現時点ではクリアテキスト HTTP/2(h2c) 対応は行わない
 
                         // RFC2817 によると Upgrade: TLS/1.0, HTTP/1.1 とかあるらしいが、ほぼ実装されてないらしい上にトンネル内はもっと無いと思われるので無視
                         this.clientConnection.ChangeToUnknownProtocol();
