@@ -26,8 +26,6 @@ namespace Nekoxy2.Test.Default.Proxy
 {
     public class ProxyConnectionTest
     {
-        // TODO (主に HTTP/1.0 で) Host がなく AbsoluteForm でない場合のエラーの取扱(BadRequest になるべきか)
-
         static ProxyConnectionTest()
         {
             HttpHeaders.Now = () => TestConstants.Now;

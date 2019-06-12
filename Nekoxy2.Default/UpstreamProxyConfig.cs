@@ -39,8 +39,6 @@ namespace Nekoxy2.Default
     /// </summary>
     public sealed class UpstreamProxyConfig : IUpstreamProxyConfig
     {
-        // TODO 認証プロキシ対応
-
         /// <summary>
         /// HTTP に用いるプロキシ
         /// </summary>

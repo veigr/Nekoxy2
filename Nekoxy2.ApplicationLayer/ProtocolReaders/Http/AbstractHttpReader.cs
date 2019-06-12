@@ -219,8 +219,6 @@ namespace Nekoxy2.ApplicationLayer.ProtocolReaders.Http
             if (this.Headers.TransferEncoding.Exists
             || this.Headers.ContentLength.Exists && 0 < this.Headers.ContentLength.Value)
             {
-                // TODO 対応している Transfer Coding に応じた TE, 501 Error の実装
-
                 // RFC7230 3.3.3
                 // Transfer-Encoding, Content-Length 両方ある場合は TransferEncoding を使用する
                 if (this.Headers.IsChunked)

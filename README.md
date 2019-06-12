@@ -77,11 +77,11 @@ Windows 環境のプロキシ設定を支援するユーティリティです。
 
 * プロキシエンジンが実装すべきインターフェイス
 
-||||
-|--|--|--|
+
 ||読み取り専用|書き換え可能|
-|HTTP|IReadOnlyHttpProxyEngine|IHttpProxyEngine|
-|+ WebSocket|IReadOnlyWebSocketProxyEngine|IWebSocketProxyEngine|
+|--|--|--|
+|**HTTP**|IReadOnlyHttpProxyEngine|IHttpProxyEngine|
+|**+ WebSocket**|IReadOnlyWebSocketProxyEngine|IWebSocketProxyEngine|
 
 
 ----------
