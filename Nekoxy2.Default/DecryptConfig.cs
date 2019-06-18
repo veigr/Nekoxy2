@@ -24,6 +24,11 @@ namespace Nekoxy2.Default
         SslProtocols EnabledSslProtocols { get; set; }
 
         /// <summary>
+        /// 証明書作成器
+        /// </summary>
+        ICertificateFactory CertificateFactory { get; set; }
+
+        /// <summary>
         /// 証明書ストア。
         /// 既定では BouncyCastle を用いて証明書を作成し、OS の個人証明書ストアにサーバー証明書をキャッシュします。
         /// </summary>
@@ -70,6 +75,11 @@ namespace Nekoxy2.Default
         /// 有効化する SSL プロトコルバージョン
         /// </summary>
         public SslProtocols EnabledSslProtocols { get; set; } = SslProtocols.Tls12 | SslProtocols.Tls11 | SslProtocols.Tls;
+
+        /// <summary>
+        /// 証明書作成器
+        /// </summary>
+        public ICertificateFactory CertificateFactory { get; set; } = new BouncyCastleCertificateFactory();
 
         /// <summary>
         /// 証明書ストア。

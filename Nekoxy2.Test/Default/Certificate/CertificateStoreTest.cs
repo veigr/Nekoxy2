@@ -26,9 +26,10 @@ namespace Nekoxy2.Test.Default.Certificate
                                             : name == StoreName.My ? myStore
                                             : null
             };
+            var factory = new BouncyCastleCertificateFactory();
 
             var issuer = "hoge";
-            var cert = store.CreateRootCertificate(issuer);
+            var cert = factory.CreateRootCertificate(issuer);
 
             store.InstallToRootStore(cert);
             store.FindRootCertificate(issuer).Is(cert);
@@ -40,7 +41,7 @@ namespace Nekoxy2.Test.Default.Certificate
             rootStore.Certificates.Count.Is(0);
 
 
-            var cert2 = store.CreateRootCertificate(issuer);
+            var cert2 = factory.CreateRootCertificate(issuer);
 
             store.InstallToRootStore(cert);
             store.FindRootCertificate(issuer).Is(cert);
@@ -63,20 +64,21 @@ namespace Nekoxy2.Test.Default.Certificate
                                             : name == StoreName.My ? myStore
                                             : null
             };
+            var factory = new BouncyCastleCertificateFactory();
 
             var issuer = "hoge";
-            var root = store.CreateRootCertificate(issuer);
+            var root = factory.CreateRootCertificate(issuer);
 
-            var server1 = store.CertificateFactory.CreateServerCertificate("host1", root);
+            var server1 = factory.CreateServerCertificate("host1", root);
             store.InstallToPersonalStore(server1);
             store.FindServerCertificate("host1", root).Is(server1);
 
-            var server2 = store.CertificateFactory.CreateServerCertificate("host2", root);
+            var server2 = factory.CreateServerCertificate("host2", root);
             store.InstallToPersonalStore(server2);
             store.FindServerCertificate("host2", root).Is(server2);
             myStore.Certificates.Count.Is(2);
 
-            var server3 = store.CertificateFactory.CreateServerCertificate("host3", root);
+            var server3 = factory.CreateServerCertificate("host3", root);
             store.InstallToPersonalStore(server3);
             store.FindServerCertificate("host3", root).Is(server3);
             myStore.Certificates.Count.Is(3);
@@ -108,13 +110,14 @@ namespace Nekoxy2.Test.Default.Certificate
 
             var config = new DecryptConfig
             {
-                CertificateStore = store
+                CertificateFactory = new BouncyCastleCertificateFactory(),
+                CertificateStore = store,
             };
 
             Assert.Throws<RootCertificateNotFoundException>(
                 () => CertificateStoreFacade.GetServerCertificate($"host", config));
             
-            store.InstallToRootStore(store.CreateRootCertificate(config.IssuerName));
+            store.InstallToRootStore(config.CertificateFactory.CreateRootCertificate(config.IssuerName));
 
             var bag = new ConcurrentBag<X509Certificate2>();
             // パラレルで100個要求してもホスト10種のみ作成される

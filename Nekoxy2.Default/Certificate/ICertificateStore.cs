@@ -8,10 +8,6 @@ namespace Nekoxy2.Default.Certificate
     /// </summary>
     public interface ICertificateStore
     {
-        /// <summary>
-        /// 証明書作成器
-        /// </summary>
-        ICertificateFactory CertificateFactory { get; set; }
 
         #region Root Certificate
 
@@ -21,13 +17,6 @@ namespace Nekoxy2.Default.Certificate
         /// <param name="issuerName">発行者名</param>
         /// <returns>ルート証明書</returns>
         X509Certificate2 FindRootCertificate(string issuerName);
-
-        /// <summary>
-        /// ルート証明書を作成
-        /// </summary>
-        /// <param name="issuerName">発行者名</param>
-        /// <returns>ルート証明書</returns>
-        X509Certificate2 CreateRootCertificate(string issuerName);
 
         /// <summary>
         /// 発行者名を指定してルート証明書をアンインストール

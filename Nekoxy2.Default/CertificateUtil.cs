@@ -16,6 +16,11 @@ namespace Nekoxy2.Default
         private static readonly ICertificateStore store = new CertificateStore();
 
         /// <summary>
+        /// 証明書作成器
+        /// </summary>
+        private static readonly ICertificateFactory factory = new BouncyCastleCertificateFactory();
+
+        /// <summary>
         /// 既定の発行者名
         /// </summary>
         internal const string DEFAULT_ISSUER_NAME = "DO_NOT_TRUST_NekoxyRoot";
@@ -34,7 +39,7 @@ namespace Nekoxy2.Default
         /// <param name="issuerName">発行者名</param>
         /// <returns>ルート証明書</returns>
         public static X509Certificate2 CreateRootCertificate(string issuerName = DEFAULT_ISSUER_NAME)
-            => store.CreateRootCertificate(issuerName);
+            => factory.CreateRootCertificate(issuerName);
 
         /// <summary>
         /// 発行者名を指定してルート証明書を新規作成し、証明書ストアにインストール
@@ -43,7 +48,7 @@ namespace Nekoxy2.Default
         /// <returns>作成されたルート証明書</returns>
         public static X509Certificate2 InstallNewRootCertificate(string issuerName = DEFAULT_ISSUER_NAME)
         {
-            var cert = store.CreateRootCertificate(issuerName);
+            var cert = factory.CreateRootCertificate(issuerName);
             store.InstallToRootStore(cert);
             return cert;
         }

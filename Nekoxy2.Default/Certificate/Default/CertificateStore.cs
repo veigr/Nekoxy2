@@ -16,20 +16,7 @@ namespace Nekoxy2.Default.Certificate.Default
         internal Func<StoreName, IX509Store> StoreFactory { get; set; }
             = storeName => new X509StoreWrapper(new X509Store(storeName, StoreLocation.CurrentUser));
 
-        /// <summary>
-        /// 証明書作成器
-        /// </summary>
-        public ICertificateFactory CertificateFactory { get; set; } = new BouncyCastleCertificateFactory();
-
         #region Root Certificate
-
-        /// <summary>
-        /// ルート証明書を作成
-        /// </summary>
-        /// <param name="issuerName">発行者名</param>
-        /// <returns>ルート証明書</returns>
-        public X509Certificate2 CreateRootCertificate(string issuerName)
-            => this.CertificateFactory.CreateRootCertificate(issuerName);
 
         /// <summary>
         /// 発行者名を指定してルート証明書をアンインストール

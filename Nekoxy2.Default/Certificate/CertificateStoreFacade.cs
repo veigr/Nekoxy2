@@ -56,7 +56,7 @@ namespace Nekoxy2.Default.Certificate
 
                 if (cacheResolvers.All(x => (cert = x?.Invoke(host)) == null))
                 {
-                    cert = config.CertificateStore.CertificateFactory.CreateServerCertificate(host, config.RootCertificate);
+                    cert = config.CertificateFactory.CreateServerCertificate(host, config.RootCertificate);
                     if (config.CacheLocationFlags.HasFlag(CertificateCacheLocation.Memory))
                     {
                         onMemoryCache.TryAdd(host, cert);
@@ -67,7 +67,7 @@ namespace Nekoxy2.Default.Certificate
                     }
                     if (config.CacheLocationFlags.HasFlag(CertificateCacheLocation.Custom))
                     {
-                        config.InvokeServerCertificateCreated(config.CertificateStore.CertificateFactory, cert);
+                        config.InvokeServerCertificateCreated(config.CertificateFactory, cert);
                     }
                 }
             }
