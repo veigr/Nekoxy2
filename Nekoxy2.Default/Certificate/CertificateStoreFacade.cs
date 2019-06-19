@@ -28,7 +28,8 @@ namespace Nekoxy2.Default.Certificate
         /// <returns>サーバー証明書</returns>
         public static X509Certificate2 GetServerCertificate(string host, DecryptConfig config)
         {
-            if ((config.RootCertificate = config.RootCertificate ?? config.CertificateStore.FindRootCertificate(config.IssuerName)) == null)
+            X509Certificate2 root;
+            if ((root = config.RootCertificateResolver(config.CertificateStore)) == null)
                 throw new RootCertificateNotFoundException();
 
             var cacheResolvers = config.CacheLocations
@@ -39,7 +40,7 @@ namespace Nekoxy2.Default.Certificate
                         case CertificateCacheLocation.Memory:
                             return h => onMemoryCache.TryGetValue(h, out var cached) ? cached : null;
                         case CertificateCacheLocation.Store:
-                            return h => config.CertificateStore.FindServerCertificate(h, config.RootCertificate);
+                            return h => config.CertificateStore.FindServerCertificate(h, root);
                         case CertificateCacheLocation.Custom:
                             return config.ServerCertificateCacheResolver;
                         default:
@@ -56,7 +57,7 @@ namespace Nekoxy2.Default.Certificate
 
                 if (cacheResolvers.All(x => (cert = x?.Invoke(host)) == null))
                 {
-                    cert = config.CertificateFactory.CreateServerCertificate(host, config.RootCertificate);
+                    cert = config.CertificateFactory.CreateServerCertificate(host, root);
                     if (config.CacheLocationFlags.HasFlag(CertificateCacheLocation.Memory))
                     {
                         onMemoryCache.TryAdd(host, cert);

@@ -35,19 +35,15 @@ namespace Nekoxy2.Default
         ICertificateStore CertificateStore { get; set; }
 
         /// <summary>
-        /// 発行者名
+        /// ルート証明書の証明書ストアからの検索方法。
+        /// 既定では、設定された証明書ストアから既定の発行者名で検索します。
         /// </summary>
-        string IssuerName { get; set; }
+        Func<ICertificateStore, X509Certificate2> RootCertificateResolver { get; set; }
 
         /// <summary>
         /// 復号化対象のホストを絞り込むフィルタ
         /// </summary>
         Func<string, bool> HostFilterHandler { get; set; }
-
-        /// <summary>
-        /// ルート証明書
-        /// </summary>
-        X509Certificate2 RootCertificate { get; set; }
 
         /// <summary>
         /// カスタムキャッシュ場所が有効な場合に、ホスト名からサーバー証明書のキャッシュを解決し取得を行う関数
@@ -59,6 +55,11 @@ namespace Nekoxy2.Default
         /// 指定された順序が優先度となります。
         /// </summary>
         IEnumerable<CertificateCacheLocation> CacheLocations { get; set; }
+
+        /// <summary>
+        /// カスタムキャッシュ場所が有効な場合に、サーバー証明書が作成された際に発生
+        /// </summary>
+        event EventHandler<X509Certificate2> ServerCertificateCreated;
     }
 
     /// <summary>
@@ -88,19 +89,16 @@ namespace Nekoxy2.Default
         public ICertificateStore CertificateStore { get; set; } = new CertificateStore();
 
         /// <summary>
-        /// 発行者名
+        /// ルート証明書の証明書ストアからの検索方法。
+        /// 既定では、設定された証明書ストアから既定の発行者名で検索します。
         /// </summary>
-        public string IssuerName { get; set; } = CertificateUtil.DEFAULT_ISSUER_NAME;
+        public Func<ICertificateStore, X509Certificate2> RootCertificateResolver { get; set; } = store
+               => store.FindRootCertificate(CertificateUtil.DEFAULT_ISSUER_NAME);
 
         /// <summary>
         /// 復号化対象のホストを絞り込むフィルタ
         /// </summary>
         public Func<string, bool> HostFilterHandler { get; set; } = host => true;
-
-        /// <summary>
-        /// ルート証明書
-        /// </summary>
-        public X509Certificate2 RootCertificate { get; set; } = null;
 
         /// <summary>
         /// カスタムキャッシュ場所が有効な場合に、ホスト名からサーバー証明書のキャッシュを解決し取得を行う関数
@@ -115,15 +113,15 @@ namespace Nekoxy2.Default
             = new[] { CertificateCacheLocation.Memory, CertificateCacheLocation.Custom, CertificateCacheLocation.Store };
 
         /// <summary>
+        /// カスタムキャッシュ場所が有効な場合に、サーバー証明書が作成された際に発生
+        /// </summary>
+        public event EventHandler<X509Certificate2> ServerCertificateCreated;
+
+        /// <summary>
         /// (for Test) フラグ化されたキャッシュ場所
         /// </summary>
         internal CertificateCacheLocation CacheLocationFlags
             => (CertificateCacheLocation)this.CacheLocations.Distinct().Cast<int>().Sum();
-
-        /// <summary>
-        /// カスタムキャッシュ場所が有効な場合に、サーバー証明書が作成された際に発生
-        /// </summary>
-        internal event EventHandler<X509Certificate2> ServerCertificateCreated;
 
         /// <summary>
         /// <see cref="ServerCertificateCreated"/> イベントを発生させます

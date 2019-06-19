@@ -117,7 +117,7 @@ namespace Nekoxy2.Test.Default.Certificate
             Assert.Throws<RootCertificateNotFoundException>(
                 () => CertificateStoreFacade.GetServerCertificate($"host", config));
             
-            store.InstallToRootStore(config.CertificateFactory.CreateRootCertificate(config.IssuerName));
+            store.InstallToRootStore(CertificateUtil.CreateRootCertificate());
 
             var bag = new ConcurrentBag<X509Certificate2>();
             // パラレルで100個要求してもホスト10種のみ作成される

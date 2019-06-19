@@ -43,7 +43,7 @@ namespace Nekoxy2.Sample
             engine.DecryptConfig.IsDecrypt = true;
             //engine.DecryptConfig.HostFilterHandler = host
             //    => host.EndsWith("cat-ears.net");
-            //engine.DecryptConfig.IssuerName = "Titanium Root Certificate Authority";
+            // engine.DecryptConfig.RootCertificateResolver = store => store.FindRootCertificate("Titanium Root Certificate Authority");
             engine.DecryptConfig.CacheLocations
                 = new[] {   // 定義順が読み取り優先順
                     CertificateCacheLocation.Memory,
