@@ -139,38 +139,5 @@ namespace Nekoxy2.Default.Proxy.Tls
             public ushort ExtensionsLength { get; set; }
             #endregion
         }
-
-        // require over TLS1.0(0x0301)
-        // 0        1byte   ContentType 22 (0x16/Handshake)
-        // 1        1byte   MajorVersion
-        // 2        1byte   MinorVersion
-        // 3-4      2bytes  length(uint16)
-        // -- ここまでTLSレコードヘッダ。以下は分割される可能性あり。
-        // 0        1byte   HandshakeType (0x01/clienthello)
-        // 1-3      3bytes  length(uint24)  // length が取れるか、length 分データを受信するまではレコード読み取り継続したい
-        // -- ここまでHandshakeヘッダ。
-        // 4        1byte   MajorVersion
-        // 5        1byte   MinorVersion    <- こっちで判定。TLS1.3以降は拡張でネゴるので1.2(3.3)固定となる。3.1以上なら問題ない。
-        // 6-37     4+28bytes   Random
-        // 38       1byte   SessionIDLength
-        //          nbytes  SessionID
-        //          2bytes  CipherSuitesLength
-        //          nbytes  CipherSuites
-        //          1byte   CompressionMethodsLength
-        //          nbyte   CompressionMethod
-        //          2bytes  ExtensionsLength
-
-        // Extension
-        //  2bytes Type (ALPN=16(0x0e))
-        //  2bytes Length
-        //  nbytes Data
-
-        // ALPN Extension
-        //  2bytes TotalLength
-        //  ALPNType[]  <- この配列が欲しい
-
-        // ALPN Protocol Name
-        //  1byte  Length
-        //  nbyte  NextProtocol
     }
 }

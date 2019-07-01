@@ -218,11 +218,6 @@ namespace Nekoxy2.Default.Proxy.Tls
         /// <returns></returns>
         public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken _)
         {
-            // TODO ClientConnection の Buffered > Ssl > Bufferd > Network 化した後の初回ホストSslStreamのReadが遅い
-            // 本 Stream は無関係(SslStream 直利用でも発生する)
-            // Connection 単位の問題ではなく、Application 単位の問題
-            // 証明書を Titanium のものにしても変化しない
-            // .NET Core では再現しない。。
             if (this.closed)
                 return 0;
 

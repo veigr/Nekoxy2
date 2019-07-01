@@ -134,20 +134,6 @@ namespace Nekoxy2.Default.Proxy
         /// <param name="receiveSharedLock">待ち受け後処理ロック</param>
         protected HttpConnection(ITcpClient client, ProxyConfig config = null, SemaphoreQueue receiveSharedLock = null)
         {
-            // ### Client/Server それぞれを ConnectionPool にする案について
-            //   tcp接続
-            //   →ClientConnection生成
-            //   →受信したリクエストに生成元ID付加してManagerに送信
-            //   →接続先を見てServerConnection生成
-            //   →リクエスト送信
-            //   →レスポンス返ってきたらリクエストに紐づけてManagerに返信
-            //   →生成元IDを見てClientConnectionを探し返信
-            // メリット: ServerConnectionが最小限に抑えられる
-            // デメリット: 1つのClient/ServerコネクションがCloseすると他が巻き込まれて切断されるので、
-            //   クライアントから見ると不意の切断が増える
-            //   コネクション管理がめちゃくちゃ面倒くさい割にメリットが少ない
-            // Nekoxy2.Default はローカルフォワードプロキシ実装を目標としているので、1:1コネクション実装でも問題ないと考える
-
             this.client = client;
             this.AddDisposableItem(this.client);
 
@@ -227,44 +213,6 @@ namespace Nekoxy2.Default.Proxy
 
                     if (!this.client.Connected)
                         break;
-
-                    // SSL 初期化シーケンス (HTTP/2 対応前)
-                    //
-                    // 上流がいない場合
-                    // SSL解除
-                    // ・クライアント→CONNECT
-                    // 　・プロキシ→200
-                    // 　・change to tunnel
-                    // ・クライアント→SSL or なにか
-                    // 　・SSL判別→★サーバーポース解除
-                    // 　　・死→★サーバーポース解除
-                    //
-                    // それ以外
-                    // ・クライアント→CONNECT
-                    // 　・プロキシ→200
-                    // 　・change to tunnel
-                    // 　・★サーバーポーズ解除
-                    //
-                    // 上流がいる場合
-                    // SSL解除
-                    // ・クライアント→rec CONNECT
-                    // 　・サーバー→send CONNECT
-                    // 　・★サーバーポーズ解除
-                    // 　・サーバー→rec 200
-                    // 　・★サーバーポーズ
-                    // 　・クライアント→send 200
-                    // 　・change to tunnel
-                    // ・クライアント→SSL or なにか
-                    // 　・SSL判別→★サーバーポース解除 
-                    // 　　・死→★サーバーポース解除
-                    //
-                    // それ以外
-                    // ・クライアント→rec CONNECT
-                    // 　・サーバー→send CONNECT
-                    // 　・★サーバーポーズ解除
-                    // 　・サーバー→rec 200
-                    // 　・クライアント→send 200
-                    // 　・change to tunnel
 
                     var isReceived = await this.ReceivedStream.ReceiveAsync().ConfigureAwait(false);
                     if (!isReceived)
